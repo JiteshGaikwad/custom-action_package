@@ -1,0 +1,33 @@
+{
+    "name": "@jitesh877/custom-action-package",
+    "version": "1.0.0",
+    "description": "Adaptive Runtime Custom Action Dialog package",
+    "author": "Jitesh Gaikwad",
+    "license": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/JiteshGaikwad"
+    },
+    "scripts": {
+        "build": "tsc -b",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "files": ["exported", "lib", "src"],
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "peerDependencies": {
+        "adaptive-expressions": "^4.15.0",
+        "botbuilder": "^4.15.0",
+        "botbuilder-dialogs": "^4.15.0",
+        "botbuilder-dialogs-adaptive-runtime-core": "4.15.0-preview",
+        "botbuilder-dialogs-declarative": "4.15.0-preview"
+    },
+    "devDependencies": {
+        "adaptive-expressions": "~4.15.0",
+        "botbuilder": "~4.15.0",
+        "botbuilder-dialogs": "~4.15.0",
+        "botbuilder-dialogs-adaptive-runtime-core": "4.15.0-preview",
+        "botbuilder-dialogs-declarative": "4.15.0-preview",
+        "typescript": "4.6.3"
+    }
+}

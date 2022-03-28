@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botframework-sdk/master/schemas/component/component.schema",
+    "$role": "implements(Microsoft.IDialog)",
+    "title": "LoggerDialog",
+    "description": "This will log the mask data on to the console",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "message": {
+            "$ref": "schema:#/definitions/stringExpression",
+            "title": "Message",
+            "description": "message to you want to mask before logging"
+        }
+    }
+}
