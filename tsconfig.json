@@ -5,6 +5,7 @@
     "module": "commonjs",
     "outDir": "lib",
     "rootDir": "src",
-    "strict": true
+    "strictPropertyInitialization": false,
+    "strict": false
   }
 }

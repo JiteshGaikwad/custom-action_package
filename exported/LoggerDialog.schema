@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/microsoft/botframework-sdk/master/schemas/component/component.schema",
     "$role": "implements(Microsoft.IDialog)",
     "title": "LoggerDialog",
-    "description": "This will log the mask data on to the console",
+    "description": "This will log the masked data on to the console",
     "type": "object",
     "additionalProperties": false,
     "properties": {

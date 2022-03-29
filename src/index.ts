@@ -24,10 +24,6 @@ export default class CustomActionsDialog extends BotComponent {
           getDeclarativeTypes() {
             return [
               {
-                kind: AdditionDialog.$kind,
-                type: AdditionDialog,
-              },
-              {
                 kind:  LoggerDialog.$kind,
                 type: LoggerDialog,
               },

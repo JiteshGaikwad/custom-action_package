@@ -24,19 +24,25 @@ export class LoggerDialog
     extends Dialog
     implements LoggerDialogConfiguration {
     public static $kind = "LoggerDialog";
-    public message: StringExpression = new StringExpression();
+    // public message?: StringExpression;
+    public message: StringExpression = new StringExpression('');
 
     public getConverter(
         property: keyof LoggerDialogConfiguration
     ): Converter | ConverterFactory {
-        return new StringExpressionConverter();
+        switch (property) {
+            case "message":
+                return new StringExpressionConverter();
+            default:
+                return super.getConverter(property);
+        }
     }
 
-    public emailMask(email: String ) {
+    public emailMask(email: string) {
         var maskedEmail = email.replace(/([^@\.])/g, "*").split('');
-        var previous	= "";
-        for(let i=0;i<maskedEmail.length;i++){
-            if (i<=1 || previous == "." || previous == "@"){
+        var previous = "";
+        for (let i = 0; i < maskedEmail.length; i++) {
+            if (i <= 1 || previous == "." || previous == "@") {
                 maskedEmail[i] = email[i];
             }
             previous = email[i];
@@ -45,8 +51,11 @@ export class LoggerDialog
     }
     public beginDialog(dc: DialogContext): Promise<DialogTurnResult> {
         console.log('LoggerDialog Called');
-        const message = this.message.getValue(dc.state);
-        console.log(this.emailMask(message));
+        console.log(this.message);
+        const _message = this.message?.getValue(dc.state);
+        console.log(_message)
+        console.log(this.emailMask(_message))
+        // console.log(this.emailMask(_message));
         return dc.endDialog();
     }
 
