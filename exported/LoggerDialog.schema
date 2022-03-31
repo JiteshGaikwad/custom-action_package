@@ -24,9 +24,6 @@
                   "masked",
                   "encrypted"
                ]
-            },
-            {
-               "$ref":"schema:#/definitions/equalsExpression"
             }
          ]
       }
