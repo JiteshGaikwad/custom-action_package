@@ -1,15 +1,34 @@
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botframework-sdk/master/schemas/component/component.schema",
-    "$role": "implements(Microsoft.IDialog)",
-    "title": "LoggerDialog",
-    "description": "This will log the masked data on to the console",
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "message": {
-            "$ref": "schema:#/definitions/stringExpression",
-            "title": "Message",
-            "description": "message to you want to mask before logging"
-        }
-    }
+   "$schema":"https://raw.githubusercontent.com/microsoft/botframework-sdk/master/schemas/component/component.schema",
+   "$role":"implements(Microsoft.IDialog)",
+   "title":"LoggerDialog",
+   "description":"This will log the masked data on to the console",
+   "type":"object",
+   "additionalProperties":false,
+   "properties":{
+      "message":{
+         "$ref":"schema:#/definitions/stringExpression",
+         "title":"Message",
+         "description":"message to you want to mask before logging"
+      },
+      "logType":{
+         "title":"Log Type",
+         "description":"type of log that you want to log (masked or plaintext)",
+         "oneOf":[
+            {
+               "type":"string",
+               "title":"Change type",
+               "description":"Standard change type.",
+               "enum":[
+                  "plaintext",
+                  "masked",
+                  "encrypted"
+               ]
+            },
+            {
+               "$ref":"schema:#/definitions/equalsExpression"
+            }
+         ]
+      }
+   }
 }
