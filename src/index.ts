@@ -27,6 +27,10 @@ export default class CustomActionsDialog extends BotComponent {
                 kind:  LoggerDialog.$kind,
                 type: LoggerDialog,
               },
+              {
+                kind:  AdditionDialog.$kind,
+                type: AdditionDialog,
+              },
             ];
           },
         })

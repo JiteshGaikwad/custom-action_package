@@ -1,6 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+import * as crypto from 'crypto';
+const algorithm = "aes-256-cbc";
+// generate 16 bytes of random data
+
+const ENCRYPTION_KEY = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3'; // Must be 256 bits (32 characters)
+const IV_LENGTH = 16; // For AES, this is always 16
 import {
     Expression,
     StringExpression,
@@ -36,7 +42,6 @@ export class LoggerDialog
     extends Dialog
     implements LoggerDialogConfiguration {
     public static $kind = "LoggerDialog";
-    // public message?: StringExpression;
     public message: StringExpression = new StringExpression('');
     public logType: EnumExpression<LogType> = new EnumExpression<LogType>(LogType.plaintext);
 
@@ -75,15 +80,42 @@ export class LoggerDialog
         }
         return maskedEmail.join('');
     }
+
+    public encrypt(text): string {
+        let iv = crypto.randomBytes(IV_LENGTH);
+        let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
+        let encrypted = cipher.update(text);
+
+        encrypted = Buffer.concat([encrypted, cipher.final()]);
+
+        return iv.toString('hex') + ':' + encrypted.toString('hex');
+    }
+
+    public decrypt(text): string {
+        let textParts = text.split(':');
+        let iv = Buffer.from(textParts.shift(), 'hex');
+        let encryptedText = Buffer.from(textParts.join(':'), 'hex');
+        let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
+        let decrypted = decipher.update(encryptedText);
+
+        decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+        return decrypted.toString();
+    }
+
     public beginDialog(dc: DialogContext): Promise<DialogTurnResult> {
         console.log('LoggerDialog Called');
-        // console.log(this.message);
-        // console.log(this.logType);
         const _message = this.message?.getValue(dc.state);
         const _logType = this.logType?.getValue(dc.state);
         console.log(`Logtype: ${_logType}`)
         if (_logType == LogType.masked) {
             console.log(this.emailMask(_message))
+        }
+        else if (_logType == LogType.encrypted) {
+            console.log(`Before encrytion: ${_message}`)
+            const encrypted_text = this.encrypt(_message);
+            console.log(`Encrypted text: ${encrypted_text}`);
+            return;
         }
         else {
             console.log(_message)
